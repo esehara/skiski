@@ -33,10 +33,10 @@ class I(metaclass=Typename("I")):
         return y.__b__(x)
 
     def __str__(self):
-        return "(I " + str(self.x) + ")"
+        return "(I " + str(self.x) + ") "
 
     def __repr__(self):
-        return "<" + self.__str__() + ">"
+        return self.__str__()
 
     @classmethod
     def to_sk(cls):
@@ -58,10 +58,10 @@ class K(metaclass=Typename("K")):
         return K2(self.x, y)
 
     def __str__(self):
-        return "(K " + str(self.x) + ")"
+        return "(K " + str(self.x) + ") "
 
     def __repr__(self):
-        return "<" + self.__str__() + ">"
+        return self.__str__()
 
 
 class K2(metaclass=Typename("K")):
@@ -84,10 +84,10 @@ class K2(metaclass=Typename("K")):
             return x(z)
 
     def __repr__(self):
-        return "<" + self.__str__() + ">"
+        return self.__str__()
 
     def __str__(self):
-        return "(K " + str(self.x) + " " + str(self.y) + ")"
+        return "(K " + str(self.x) + str(self.y) + ") "
 
 
 class S(metaclass=Typename("S")):
@@ -102,7 +102,7 @@ class S(metaclass=Typename("S")):
 
     >>> siisii = S(I).dot(I).dot(S(I).dot(I))
     >>> siisii.b().b().b().b()
-    <(S I I (I (S I I)))>
+    (S I I (I (S I I) ) ) 
     """
 
     def __init__(self, x):
@@ -116,10 +116,10 @@ class S(metaclass=Typename("S")):
         return S2(self.x, y)
 
     def __str__(self):
-        return "S " + str(self.x)
+        return "(S " + str(self.x) + ") "
 
     def __repr__(self):
-        return "<" + self.__str__() + ">"
+        return self.__str__()
 
 
 class S2(VirtualCurry, metaclass=Typename("S")):
@@ -132,13 +132,14 @@ class S2(VirtualCurry, metaclass=Typename("S")):
         return S3(self.x, self.y, z)
 
     def __str__(self):
-        return "(S " + str(self.x) + " " + str(self.y) + ")"
+        return "(S " + str(self.x) + " " + str(self.y) + ") "
 
     def __repr__(self):
-        return "<" + self.__str__() + ">"
+        return self.__str__()
 
 
 class S3(metaclass=Typename("S")):
+
     def __init__(self, x, y, z):
         self.x = x
         self.y = y
@@ -150,10 +151,10 @@ class S3(metaclass=Typename("S")):
         return xz.dot(yz)
 
     def __str__(self):
-        return "(S " + str(self.x) + " " + str(self.y) + " " + str(self.z) + ")"
+        return "(S " + str(self.x) + " " + str(self.y) + " " + str(self.z) + ") "
 
     def __repr__(self):
-        return "<" + self.__str__() + ">"
+        return self.__str__()
 
     def _eval_i_(self, x):
         while isinstance(x, I):
@@ -163,6 +164,7 @@ class S3(metaclass=Typename("S")):
     def __b__(self, x, y):
         x = self._eval_i_(x)
         y = self._eval_i_(y)
+
         try:
             if isinstance(x, type):
                 return x(y)

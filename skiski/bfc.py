@@ -18,10 +18,10 @@ class B(metaclass=Typename("B")):
         return B2(self.x, y)
 
     def __str__(self):
-        return "(B " + str(self.x) + ")"
+        return "(B " + str(self.x) + ") "
 
     def __repr__(self):
-        return "<" + self.__str__() + ">"
+        return self.__str__()
 
     @classmethod
     def to_ski(cls):
