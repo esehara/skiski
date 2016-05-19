@@ -21,6 +21,17 @@ class I(metaclass=Typename("I")):
     def b(self):
         return self.x
 
+    @classmethod
+    def __b__(cls, x):
+        if isinstance(cls, type):
+            cls(x)
+        else:
+            cls.dot(x)
+
+    def dot(self, x):
+        y = self.b()
+        return y.__b__(x)
+
     def __str__(self):
         return "(I " + str(self.x) + ")"
 
