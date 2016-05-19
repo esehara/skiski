@@ -97,6 +97,12 @@ class S(metaclass=Typename("S")):
 
     >>> S(K).dot(K).dot(5).b().b()
     5
+
+    SII(SII) combinator is infinity loop ;)
+
+    >>> siisii = S(I).dot(I).dot(S(I).dot(I))
+    >>> siisii.b().b().b().b()
+    <(S I I (I (S I I)))>
     """
 
     def __init__(self, x):
