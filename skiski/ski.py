@@ -83,9 +83,6 @@ class K2(metaclass=Typename("K")):
         except AttributeError:
             return x(z)
 
-    def b(self):
-        return self
-
     def __repr__(self):
         return self.__str__()
 
