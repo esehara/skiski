@@ -149,7 +149,14 @@ class S3(metaclass=Typename("S")):
     def __repr__(self):
         return "<" + self.__str__() + ">"
 
+    def _eval_i_(self, x):
+        while isinstance(x, I):
+            x = x.b()
+        return x
+
     def __b__(self, x, y):
+        x = self._eval_i_(x)
+        y = self._eval_i_(y)
         try:
             if isinstance(x, type):
                 return x(y)
