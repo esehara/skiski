@@ -3,7 +3,12 @@ from helper import Typename
 
 
 class B(metaclass=Typename("B")):
+    """
+    which composes two function
 
+    >>> B(lambda x: x).dot(lambda x: x + 5).dot(5).b()
+    10
+    """
     is_class = True
     def __init__(self, x):
         self.x = x
