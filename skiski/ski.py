@@ -149,6 +149,15 @@ class S3(metaclass=Typename("S")):
     def __repr__(self):
         return "<" + self.__str__() + ">"
 
+    def __b__(self, x, y):
+        try:
+            if isinstance(x, type):
+                return x(y)
+            else:
+                return x.dot(y)
+        except AttributeError:
+            return x(z)
+
 
 if __name__ == "__main__":
     import doctest
