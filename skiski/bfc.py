@@ -23,6 +23,9 @@ class B(metaclass=Typename("B")):
     def __repr__(self):
         return self.__str__()
 
+    def b(self):
+        return self
+
     @classmethod
     def to_ski(cls):
         return S(K(S)).dot(K)
@@ -30,7 +33,6 @@ class B(metaclass=Typename("B")):
 
 class B2(metaclass=Typename("B")):
 
-    is_class = True
     def __init__(self, x, y):
         self.x = x
         self.y = y
@@ -41,6 +43,9 @@ class B2(metaclass=Typename("B")):
 
     def __str__(self):
         return "(B " + str(self.x) + " " + str(self.y) + ") "
+
+    def b(self):
+        return self
 
     def __repr__(self):
         return "<" + self.__str__() + ">"

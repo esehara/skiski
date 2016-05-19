@@ -83,6 +83,9 @@ class K2(metaclass=Typename("K")):
         except AttributeError:
             return x(z)
 
+    def b(self):
+        return self
+
     def __repr__(self):
         return self.__str__()
 
@@ -108,12 +111,11 @@ class S(metaclass=Typename("S")):
     def __init__(self, x):
         self.x = x
 
-    @classmethod
-    def d(cls, x):
-        return S(x)
-
     def dot(self, y):
         return S2(self.x, y)
+
+    def b(self):
+        return self
 
     def __str__(self):
         return "(S " + str(self.x) + ") "
@@ -133,6 +135,9 @@ class S2(VirtualCurry, metaclass=Typename("S")):
 
     def __str__(self):
         return "(S " + str(self.x) + " " + str(self.y) + ") "
+
+    def b(self):
+        return self
 
     def __repr__(self):
         return self.__str__()
