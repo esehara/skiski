@@ -34,18 +34,11 @@ class K(metaclass=Typename("K")):
     >>> K(True).dot(False).b()
     True
     """
-    is_class = True
     def __init__(self, x):
         self.x = x
-        self.is_class = False
-
-    @classmethod
-    def d(self, x):
-        return K(x)
 
     def dot(self, y):
         return K2(self.x, y)
-
 
     def __str__(self):
         return "(K " + str(self.x) + ")"
@@ -89,10 +82,8 @@ class S(metaclass=Typename("S")):
     5
     """
 
-    is_class = True
     def __init__(self, x):
         self.x = x
-        self.is_class = False
 
     @classmethod
     def d(cls, x):
@@ -130,18 +121,18 @@ class S3(metaclass=Typename("S")):
         self.y = y
         self.z = z
 
-    def __yz__(self):
+    def __b__(self, x, y):
         try:
-            if self.y.is_class:
-                return self.y.d(self.z)
+            if isinstance(x, type):
+                return x(y)
             else:
-                return self.y.dot(self.z)
+                return x.dot(y)
         except AttributeError:
-            return self.y(self.z)
+            return x(z)
 
     def b(self):
-        xz = self.x.dot(self.z)
-        return xz.dot(self.__yz__())
+        xz = self.__b__(self.x, self.z)
+        return xz.dot(self.__b__(self.y, self.z))
 
     def __str__(self):
         return "(S " + str(self.x) + " " + str(self.y) + " " + str(self.z) + ")"
