@@ -1,6 +1,12 @@
 from helper import Typename
 
 
+class VirtualCurry:
+
+    def __b__(self, x):
+        return self.dot(x)
+
+
 class I(metaclass=Typename("I")):
     """
     the identity operator
