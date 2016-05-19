@@ -111,11 +111,10 @@ class K2(metaclass=Typename("K")):
 
     def dot(self, z):
         x = self.b()
-        try:
-            if isinstance(x, type): 
-                return x(z)
-            else:
-                return x.dot(z)
+        if isinstance(x, type):
+            return x(z)
+        else:
+            return x.dot(z)
 
     def __repr__(self):
         return self.__str__()
