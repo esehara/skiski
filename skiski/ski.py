@@ -76,12 +76,10 @@ class K2(metaclass=Typename("K")):
     def dot(self, z):
         x = self.b()
         try:
-            if x.is_class:
-                return x.d(z)
+            if isinstance(x, type): 
+                return x(z)
             else:
                 return x.dot(z)
-        except AttributeError:
-            return x(z)
 
     def __repr__(self):
         return self.__str__()
