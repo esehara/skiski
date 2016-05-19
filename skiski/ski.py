@@ -20,11 +20,14 @@ class V:
         self.name = name
         self.stack = []
 
+    def _str_stack_(self):
+        return " ".join([str(x) for x in self.stack])
+
     def __str__(self):
         if len(self.stack) == 0:
             return "(" + str(self.name) + ")"
         else:
-            return "(" + str(self.name) + str(self.stack) + ")"
+            return "(" + str(self.name) + " " + self._str_stack_() + ")"
 
     def __repr__(self):
         return self.__str__()
