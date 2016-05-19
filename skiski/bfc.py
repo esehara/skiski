@@ -59,7 +59,7 @@ class B3(metaclass=Typename("B")):
         return self.x(self.y(self.z))
 
     def __str__(self):
-        return "(B " + str(self.x) + " " + str(self.y) + str(self.z) + ")"
+        return "(B " + str(self.x) + " " + str(self.y) + str(self.z) + ") "
 
     def __repr__(self):
         return "<" + self.__str__() + ">"
