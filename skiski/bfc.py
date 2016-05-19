@@ -36,7 +36,7 @@ class B2(metaclass=Typename("B")):
         self.y = y
         self.is_class = False
 
-    def dot(self, y):
+    def dot(self, z):
         return B3(self.x, self.y, z)
 
     def __str__(self):
@@ -49,17 +49,22 @@ class B2(metaclass=Typename("B")):
 class B3(metaclass=Typename("B")):
 
     is_class = True
-    def __init__(self, x, y):
+    def __init__(self, x, y, z):
         self.x = x
         self.y = y
         self.z = z
         self.is_class = False
 
     def b(self):
-        return x(y(z))
+        return self.x(self.y(self.z))
 
     def __str__(self):
         return "(B " + str(self.x) + " " + str(self.y) + str(self.z) + ")"
 
     def __repr__(self):
         return "<" + self.__str__() + ">"
+
+
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()
