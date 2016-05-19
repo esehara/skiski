@@ -87,7 +87,7 @@ class K2(metaclass=Typename("K")):
         return self.__str__()
 
     def __str__(self):
-        return "(K " + str(self.x) + str(self.y) + ") "
+        return "(K " + str(self.x) + " " + str(self.y) + ") "
 
 
 class S(metaclass=Typename("S")):
