@@ -116,7 +116,7 @@ class S(metaclass=Typename("S")):
         return "<" + self.__str__() + ">"
 
 
-class S2(metaclass=Typename("S")):
+class S2(VirtualCurry, metaclass=Typename("S")):
 
     def __init__(self, x, y):
         self.x = x
@@ -138,18 +138,10 @@ class S3(metaclass=Typename("S")):
         self.y = y
         self.z = z
 
-    def __b__(self, x, y):
-        try:
-            if isinstance(x, type):
-                return x(y)
-            else:
-                return x.dot(y)
-        except AttributeError:
-            return x(z)
-
     def b(self):
+        yz = self.__b__(self.y, self.z)
         xz = self.__b__(self.x, self.z)
-        return xz.dot(self.__b__(self.y, self.z))
+        return xz.dot(yz)
 
     def __str__(self):
         return "(S " + str(self.x) + " " + str(self.y) + " " + str(self.z) + ")"
