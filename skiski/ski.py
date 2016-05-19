@@ -24,9 +24,9 @@ class I(metaclass=Typename("I")):
     @classmethod
     def __b__(cls, x):
         if isinstance(cls, type):
-            cls(x)
+            return cls(x)
         else:
-            cls.dot(x)
+            return cls.dot(x)
 
     def dot(self, x):
         y = self.b()
