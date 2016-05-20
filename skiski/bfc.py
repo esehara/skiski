@@ -1,5 +1,4 @@
-from ski import S, K, I, V
-from helper import Typename
+from skiski.helper import Typename
 
 
 class B(metaclass=Typename("B")):
@@ -47,7 +46,8 @@ class B2(metaclass=Typename("B")):
         return "(B " + str(self.x) + " " + str(self.y) + ") "
 
     def b(self):
-        self.y = self.y.b()
+        if not isinstance(self.y, type):
+            self.y = self.y.b()
         return self
 
     def __repr__(self):

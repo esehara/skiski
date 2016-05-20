@@ -1,10 +1,12 @@
-from helper import Typename
+from skiski.helper import Typename
 from copy import copy
+
 
 class VirtualCurry:
 
     def __b__(self, x):
         return self.dot(x)
+
 
 class V:
     """
