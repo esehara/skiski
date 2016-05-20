@@ -17,6 +17,5 @@ def test_const_function():
 
 
 def test_share_function():
-    a = lambda x: x * 5
-    b = lambda x: x - 3
-    assert S(a).dot(b).dot(5).w() == 10
+    a = lambda x: x
+    assert S(K).dot(K).dot(10).w().w() == 10

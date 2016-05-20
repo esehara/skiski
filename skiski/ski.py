@@ -221,7 +221,7 @@ class S3(metaclass=Typename("S")):
 
     @classmethod
     def is_dot(cls, x):
-        return not isinstance(x, type) or hasattr(x, "dot")
+        return (not isinstance(x, type)) and hasattr(x, "dot")
 
     @classmethod
     def _wrap_w_(cls, x, y):
