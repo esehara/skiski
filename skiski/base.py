@@ -1,3 +1,6 @@
+from copy import copy
+
+
 class V:
     """
     generate variable obeject

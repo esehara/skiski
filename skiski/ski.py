@@ -1,6 +1,5 @@
 from skiski.base import V
 from skiski.helper import Typename
-from copy import copy
 
 
 class VirtualCurry:
