@@ -73,10 +73,10 @@ class _B3(metaclass=Typename("B")):
         return xyz
 
     def __w__(self, x, y):
-        if isinstance(x, type) or not hasattr(x, "__b__"):
+        if isinstance(x, type) or not hasattr(x, "__w__"):
             return x(y)
         else:
-            return x.__b__(y)
+            return x.__w__(y)
 
     def __str__(self):
         return "(B " + str(self.x) + " " + str(self.y) + " " + str(self.z) + ") "
