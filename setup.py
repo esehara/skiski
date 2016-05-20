@@ -15,7 +15,7 @@ setup(
     author="esehara shigeo",
     author_email="esehara@gmail.com",
     url="https://github.com/esehara/skiski",
-    py_modules=["skiski"],
+    packages=["skiski"],
     include_package_data=True,
     license="MIT",
     zip_safe=False,
