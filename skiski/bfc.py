@@ -1,6 +1,7 @@
 from skiski.helper import Typename
 from skiski.ski import S, K, I
 
+
 class B(metaclass=Typename("B")):
     """
     which composes two function
