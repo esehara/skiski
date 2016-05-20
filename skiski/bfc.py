@@ -34,11 +34,8 @@ class B(metaclass=Typename("B")):
 
         >>> B.to_ski()
         (S (K S)  K) 
-        >>> sksk = S(B.to_ski()).dot(K(I)).dot(V("Succ")).w().dot(V("Zero"))
-        >>> sksk
-        (S (K Succ)  I Zero) 
-        >>> sksk.w()
-        (Succ Zero)
+        >>> sksk = S(B.to_ski()).dot(I).dot(V("Succ")).w().dot(V("Zero"))
+        (Succ (Succ Zero))
         """
         return S(K(S)).dot(K)
 
