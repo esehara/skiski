@@ -194,8 +194,17 @@ class S3(metaclass=Typename("S")):
 
     def b(self):
         yz = self.__b__(self.y, self.z)
+        if hasattr(yz, "b"):
+            yz = yz.b()
+
         xz = self.__b__(self.x, self.z)
-        return xz.dot(yz)
+        if hasattr(xz, "b"):
+            xz = xz.b()
+
+        if isinstance(xz, type):
+            return xz(yz)
+        else:
+            return xz.dot(yz)
 
     def __str__(self):
         return "(S " + str(self.x) + " " + str(self.y) + " " + str(self.z) + ") "
