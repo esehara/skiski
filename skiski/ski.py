@@ -25,7 +25,7 @@ class V:
 
     def __str__(self):
         if len(self.stack) == 0:
-            return "(" + str(self.name) + ")"
+            return str(self.name)
         else:
             return "(" + str(self.name) + " " + self._str_stack_() + ")"
 
