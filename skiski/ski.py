@@ -47,7 +47,7 @@ class V:
     def __b__(self, x):
         return self.dot(x)
 
-    def b(self):
+    def w(self):
         new_stack = []
         for s in self.stack:
             if hasattr(s, "b"):
@@ -55,30 +55,31 @@ class V:
         self.stack = new_stack
         return self
 
+
 class I(metaclass=Typename("I")):
     """
     the identity operator
     (lambda x: x)(5) => 5
 
-    >>> I(5).b()
+    >>> I(5).w()
     5
     """
     def __init__(self, x):
         self.x = x
 
-    def b(self):
+    def w(self):
         return self.x
 
     @classmethod
-    def __b__(cls, x):
+    def __w__(cls, x):
         if isinstance(cls, type):
             return cls(x)
         else:
             return cls.dot(x)
 
     def dot(self, x):
-        y = self.b()
-        return y.__b__(x)
+        y = self.w()
+        return y.__w__(x)
 
     def __str__(self):
         return "(I " + str(self.x) + ") "
@@ -96,14 +97,14 @@ class K(metaclass=Typename("K")):
     which forms constant functions
     (lambda x, y)(True, False) => True
 
-    >>> K(True).dot(False).b()
+    >>> K(True).dot(False).w()
     True
     """
     def __init__(self, x):
         self.x = x
 
     def dot(self, y):
-        return K2(self.x, y)
+        return _K2(self.x, y)
 
     def __str__(self):
         return "(K " + str(self.x) + ") "
@@ -112,13 +113,13 @@ class K(metaclass=Typename("K")):
         return self.__str__()
 
 
-class K2(metaclass=Typename("K")):
+class _K2(metaclass=Typename("K")):
 
     def __init__(self, x, y):
         self.x = x
         self.y = y
 
-    def b(self):
+    def w(self):
         return self.x
 
     def dot(self, z):
@@ -156,7 +157,7 @@ class S(metaclass=Typename("S")):
     def dot(self, y):
         return S2(self.x, y)
 
-    def b(self):
+    def w(self):
         return self
 
     def __str__(self):
@@ -178,7 +179,7 @@ class S2(VirtualCurry, metaclass=Typename("S")):
     def __str__(self):
         return "(S " + str(self.x) + " " + str(self.y) + ") "
 
-    def b(self):
+    def w(self):
         return self
 
     def __repr__(self):
@@ -192,19 +193,14 @@ class S3(metaclass=Typename("S")):
         self.y = y
         self.z = z
 
-    def b(self):
-        yz = self.__b__(self.y, self.z)
-        if hasattr(yz, "b"):
-            yz = yz.b()
+    def w(self):
+        yz = self._wrap_w_(self.y, self.z)
+        xz = self._wrap_w_(self.x, self.z)
 
-        xz = self.__b__(self.x, self.z)
-        if hasattr(xz, "b"):
-            xz = xz.b()
-
-        if isinstance(xz, type):
-            return xz(yz)
-        else:
+        if self.is_dot(xz):
             return xz.dot(yz)
+        else:
+            return xz(yz)
 
     def __str__(self):
         return "(S " + str(self.x) + " " + str(self.y) + " " + str(self.z) + ") "
@@ -212,22 +208,32 @@ class S3(metaclass=Typename("S")):
     def __repr__(self):
         return self.__str__()
 
-    def _eval_i_(self, x):
+    @classmethod
+    def is_dot(cls, x):
+        return not isinstance(x, type) or hasattr(x, "dot")
+
+    @classmethod
+    def _wrap_w_(cls, x, y):
+        xy = cls.__w__(x, y)
+        if hasattr(xy, "w"):
+            xy = xy.w()
+        return xy
+
+    @classmethod
+    def _eval_i_(cls, x):
         while isinstance(x, I):
-            x = x.b()
+            x = x.w()
         return x
 
-    def __b__(self, x, y):
-        x = self._eval_i_(x)
-        y = self._eval_i_(y)
+    @classmethod
+    def __w__(cls, x, y):
+        x = cls._eval_i_(x)
+        y = cls._eval_i_(y)
 
-        try:
-            if isinstance(x, type):
-                return x(y)
-            else:
-                return x.dot(y)
-        except AttributeError:
-            return x(z)
+        if self.is_dot(x):
+            return x.dot(y)
+        else:
+            return x(y)
 
 
 if __name__ == "__main__":
