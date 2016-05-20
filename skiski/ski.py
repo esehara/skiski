@@ -111,7 +111,7 @@ class S(metaclass=Typename("S")):
     SII(SII) combinator is infinity loop ;)
 
     >>> siisii = S(I).dot(I).dot(S(I).dot(I))
-    >>> siisii.b().b().b().b()
+    >>> siisii.w().w().w().w()
     (S I I (I (S I I) ) ) 
     """
 
