@@ -1,3 +1,4 @@
+from skiski.base import CombinatorBase
 from skiski.helper import Typename
 from skiski.ski import S, K, I
 
@@ -41,12 +42,11 @@ class B(metaclass=Typename("B")):
         return S(K(S)).dot(K)
 
 
-class _B2(metaclass=Typename("B")):
+class _B2(CombinatorBase, metaclass=Typename("B")):
 
     def __init__(self, x, y):
         self.x = x
         self.y = y
-        self.is_class = False
 
     def dot(self, z):
         return _B3(self.x, self.y, z)
@@ -55,15 +55,12 @@ class _B2(metaclass=Typename("B")):
         return "(B " + str(self.x) + " " + str(self.y) + ") "
 
     def w(self):
-        if not isinstance(self.y, type):
-            self.y = self.y.b()
+        if self.is_weak(self.y):
+            self.y = self.y.w()
         return self
 
-    def __repr__(self):
-        return "<" + self.__str__() + ">"
 
-
-class _B3(metaclass=Typename("B")):
+class _B3(CombinatorBase, metaclass=Typename("B")):
 
     def __init__(self, x, y, z):
         self.x = x
@@ -77,7 +74,7 @@ class _B3(metaclass=Typename("B")):
         return xyz
 
     def __w__(self, x, y):
-        if isinstance(x, type) or not hasattr(x, "__w__"):
+        if self.is_weak(x):
             return x(y)
         else:
             return x.__w__(y)
@@ -87,6 +84,44 @@ class _B3(metaclass=Typename("B")):
 
     def __repr__(self):
         return "<" + self.__str__() + ">"
+
+
+class R(CombinatorBase, metaclass=Typename("R")):
+
+    def __init__(self, x):
+        self.x = x
+
+    def dot(self, y):
+        return _R2(self.x, y)
+
+    def __str__(self):
+        return "(R " + str(self.x) + ") "
+
+
+class _R2(CombinatorBase, metaclass=Typename("R")):
+
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def dot(self, z):
+        return _R3(self.x, self.y, z)
+
+    def __w__(self, x, y):
+        if self.is_weak(x):
+            return x(y)
+        else:
+            return x.__w__(y)
+
+    def w(self):
+        return self.__w__(self.y, self.x)
+
+    def __str__(self):
+        return "(R" + str(self.x) + " " + str(self.y) + ")"
+
+    @classmethod
+    def to_ski(cls):
+        return S(K(S(I))).dot(K)
 
 
 if __name__ == "__main__":

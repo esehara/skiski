@@ -1,6 +1,19 @@
 from copy import copy
 
 
+class CombinatorBase:
+
+    @classmethod
+    def is_weak(cls, x):
+        return isinstance(x, type) or not hasattr(x, "__w__")
+
+    def w(self):
+        return self
+
+    def __repr__(self):
+        return "<" + self.__str__() + ">"
+
+
 class V:
     """
     generate variable obeject
