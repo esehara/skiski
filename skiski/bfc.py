@@ -1,4 +1,4 @@
-from ski import S, K, I
+from ski import S, K, I, V
 from helper import Typename
 
 
@@ -8,6 +8,8 @@ class B(metaclass=Typename("B")):
 
     >>> B(lambda x: x).dot(lambda x: x + 5).dot(5).b()
     10
+    >>> S(B).dot(I).dot(V("Succ")).b().b().dot("Zero").b()
+    (Succ (Succ Zero))
     """
     is_class = True
     def __init__(self, x):
@@ -45,6 +47,7 @@ class B2(metaclass=Typename("B")):
         return "(B " + str(self.x) + " " + str(self.y) + ") "
 
     def b(self):
+        self.y = self.y.b()
         return self
 
     def __repr__(self):
@@ -53,7 +56,6 @@ class B2(metaclass=Typename("B")):
 
 class B3(metaclass=Typename("B")):
 
-    is_class = True
     def __init__(self, x, y, z):
         self.x = x
         self.y = y
@@ -61,10 +63,18 @@ class B3(metaclass=Typename("B")):
         self.is_class = False
 
     def b(self):
-        return self.x(self.y(self.z))
+        yz = self.__b__(self.y, self.z)
+        xyz = self.__b__(self.x, yz)
+        return xyz
+
+    def __b__(self, x, y):
+        if isinstance(x, type) or not hasattr(x, "__b__"):
+            return x(y)
+        else:
+            return x.__b__(y)
 
     def __str__(self):
-        return "(B " + str(self.x) + " " + str(self.y) + str(self.z) + ") "
+        return "(B " + str(self.x) + " " + str(self.y) + " " + str(self.z) + ") "
 
     def __repr__(self):
         return "<" + self.__str__() + ">"
