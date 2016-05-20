@@ -45,6 +45,13 @@ class V:
     def __b__(self, x):
         return self.dot(x)
 
+    def b(self):
+        new_stack = []
+        for s in self.stack:
+            if hasattr(s, "b"):
+                new_stack.append(s.b())
+        self.stack = new_stack
+        return self
 
 class I(metaclass=Typename("I")):
     """
