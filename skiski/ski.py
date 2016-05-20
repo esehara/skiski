@@ -44,14 +44,14 @@ class V:
         new_v.stack.append(x)
         return new_v
 
-    def __b__(self, x):
+    def __w__(self, x):
         return self.dot(x)
 
     def w(self):
         new_stack = []
         for s in self.stack:
-            if hasattr(s, "b"):
-                new_stack.append(s.b())
+            if hasattr(s, "w"):
+                new_stack.append(s.w())
         self.stack = new_stack
         return self
 
