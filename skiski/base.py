@@ -5,7 +5,7 @@ class CombinatorBase:
 
     @classmethod
     def is_weak(cls, x):
-        return isinstance(x, type) or not hasattr(x, "__w__")
+        return (not isinstance(x, type)) and hasattr(x, "w")
 
     def w(self):
         return self

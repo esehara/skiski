@@ -75,9 +75,9 @@ class _B3(CombinatorBase, metaclass=Typename("B")):
 
     def __w__(self, x, y):
         if self.is_weak(x):
-            return x(y)
+            return x.w(y)
         else:
-            return x.__w__(y)
+            return x(y)
 
     def __str__(self):
         return "(B " + str(self.x) + " " + str(self.y) + " " + str(self.z) + ") "
@@ -109,9 +109,9 @@ class _R2(CombinatorBase, metaclass=Typename("R")):
 
     def __w__(self, x, y):
         if self.is_weak(x):
-            return x(y)
-        else:
             return x.__w__(y)
+        else:
+            return x(y)
 
     def w(self):
         return self.__w__(self.y, self.x)
