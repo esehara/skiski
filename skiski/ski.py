@@ -241,7 +241,7 @@ class S3(metaclass=Typename("S")):
         x = cls._eval_i_(x)
         y = cls._eval_i_(y)
 
-        if self.is_dot(x):
+        if cls.is_dot(x):
             return x.dot(y)
         else:
             return x(y)
