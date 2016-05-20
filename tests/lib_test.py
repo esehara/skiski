@@ -1,5 +1,5 @@
 import pytest
-from skiski.bfc import B
+from skiski.lib import B
 
 
 def test_composite_function():
