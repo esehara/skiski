@@ -1,5 +1,5 @@
 from skiski.helper import Typename
-
+from skiski.ski import S, K, I
 
 class B(metaclass=Typename("B")):
     """
@@ -32,7 +32,13 @@ class B(metaclass=Typename("B")):
         """
         S(KS)K Combinator is virtually B Combinator:
 
-        >>>
+        >>> B.to_ski()
+        (S (K S)  K) 
+        >>> sksk = S(B.to_ski()).dot(K(I)).dot(V("Succ")).w().dot(V("Zero"))
+        >>> sksk
+        (S (K Succ)  I Zero) 
+        >>> sksk.w()
+        (Succ Zero)
         """
         return S(K(S)).dot(K)
 
