@@ -88,7 +88,18 @@ class I(metaclass=Typename("I")):
         return self.__str__()
 
     @classmethod
-    def to_sk(cls):
+    def to_ski(cls):
+        """
+        Only S and K combinator make I combinator.
+
+        >>> skk = S(K).dot(K).dot(1)
+        >>> skk.w()
+        (K 1 (K 1) )
+        >>> skk.w().w()
+        1
+
+        It's behavior means 'I combinator'.
+        """
         return S(K).dot(K)
 
 
@@ -141,7 +152,7 @@ class S(metaclass=Typename("S")):
     a stronger composition operator
     (lambda x, y, z)(f, g, h) => f(h, g(h))
 
-    >>> S(K).dot(K).dot(5).b().b()
+    >>> S(K).dot(K).dot(5).w().w()
     5
 
     SII(SII) combinator is infinity loop ;)
